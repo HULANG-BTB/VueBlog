@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "MAGNETOB";
+  src: url("../fonts/MAGNETOB.woff2") format("woff2"),
+  url("../fonts/MAGNETOB.woff") format("woff"),
+  url("../fonts/MAGNETOB.ttf") format("truetype"),
+  url("../fonts/MAGNETOB.eot") format("embedded-opentype"),
+  url("../fonts/MAGNETOB.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
