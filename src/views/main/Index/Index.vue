@@ -41,8 +41,8 @@
     name: "Index",
     data () {
       return {
-        page: parseInt(this.$route.params.page) || 1,
-        limit: parseInt(this.$route.params.limit) || 15,
+        page: 1,
+        limit: 10,
         loading: false
       }
     },
@@ -57,25 +57,26 @@
     },
     methods: {
       async loadMore() {
-        await this.$router.push({name: 'Index', params: {
-            page: this.page + 1,
-            limit: this.limit
-          }
-        })
         this.page += 1
         await this.fetchData()
       },
       async fetchData() {
         this.loading = true
-        await this.$store.dispatch('getArticleListByPaginator', {
-          page: this.page,
-          limit: this.limit
-        })
+        const {page, limit} = this
+        await this.$store.dispatch('getArticleListByPaginator', {page, limit})
         this.loading = false
       }
     },
     components: {
       Article
+    },
+    watch: {
+      $route () {
+        this.page = 1
+        this.limit = 10
+        this.$store.commit('clear_article_list')
+        this.fetchData()
+      }
     }
   }
 </script>

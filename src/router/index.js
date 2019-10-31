@@ -13,7 +13,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/Index/:page?/:limit?',
+      path: '/Index',
       name: 'Index',
       component: () => import('@/views/main/Index/Index'),
       meta: {
@@ -24,11 +24,7 @@ export default new Router({
     {
       path: '/',
       redirect: {
-        name: 'Index',
-        params: {
-          page: 1,
-          limit: 10
-        }
+        name: 'Index'
       }
     },
     {
@@ -41,7 +37,7 @@ export default new Router({
       }
     },
     {
-      path: '/Tag/:tag?/:page?/:limit?',
+      path: '/Tag/:tag?',
       name: 'Tag',
       component: () => import('@/views/main/Tag/Tag'),
       meta: {
@@ -49,8 +45,7 @@ export default new Router({
         breadcrumb: 'Tag'
       },
       params: {
-        page: 1,
-        limit: 10
+        tag: ''
       }
     },
     {

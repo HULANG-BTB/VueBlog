@@ -11,7 +11,7 @@
     </div>
     <div class="unselected more">
       <Spin size="large" v-if="loading"></Spin>
-      <span v-else-if="page <= Math.floor(ArticleList.total / ArticleList.limit)" @click="loadMore">更多</span>
+      <span v-else-if="page < Math.floor(ArticleList.total / ArticleList.limit)" @click="loadMore">更多</span>
       <span v-else>没有更多了。。。</span>
     </div>
   </div>
@@ -24,8 +24,8 @@
     data () {
       return {
         loading: false,
-        page: parseInt(this.$route.params.page) || 1,
-        limit: parseInt(this.$route.params.limit) || 15,
+        page: 1,
+        limit: 10,
       }
     },
     computed: {
@@ -41,10 +41,9 @@
       this.fetchData()
     },
     methods: {
-      async loadMore() {
+      loadMore() {
         this.page += 1
-        const {page, limit, tag} = this
-        await this.$router.push({name: 'Tag', params: {page, limit, tag}})
+        this.fetchData()
       },
       async fetchData() {
         this.loading = true
@@ -57,10 +56,10 @@
       Article
     },
     watch: {
-      tag () {
-        this.$store.commit('clear_article_list')
-      },
       $route () {
+        this.page = 1
+        this.limit = 10
+        this.$store.commit('clear_article_list')
         this.fetchData()
       }
     }
