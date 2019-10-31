@@ -47,10 +47,16 @@
     components: {
       Calendar
     },
+    created() {
+      if (this.$route.params.time) {
+        this.currentDate = new Date(this.$route.params.time)
+      }
+    },
     methods: {
       handleDateChange(date) {
+        this.currentDate = date
         this.$router.push({name: 'Time', params: {
-            keyword: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+            time: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
           }
         })
       },

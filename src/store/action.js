@@ -10,7 +10,8 @@ import {
   reqArticleInfo,
   reqTagList,
   reqArticleListByTag,
-  reqArticleListByPaginator
+  reqArticleListByPaginator,
+  reqArticleListByTime
 } from '../api'
 
 export default {
@@ -37,6 +38,13 @@ export default {
   },
   async getArticleListByTag({commit}, query) {
     const result = await reqArticleListByTag(query);
+    if (result.code === 1) {
+      const ArticleList = result.data.data
+      commit(RECEIVE_ARTICLE_LIST, {ArticleList})
+    }
+  },
+  async getArticleListByTime({commit}, query) {
+    const result = await reqArticleListByTime(query);
     if (result.code === 1) {
       const ArticleList = result.data.data
       commit(RECEIVE_ARTICLE_LIST, {ArticleList})

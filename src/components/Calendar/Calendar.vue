@@ -27,7 +27,7 @@
           :key="index"
           class="item"
           :class="{disable:item.disable, active: item.active}"
-          @dblclick="handleDateChange(item)"
+          @click="handleDateChange(item)"
         >
           {{ item.day }}
         </li>
@@ -119,7 +119,8 @@
       },
       handleDateChange(item) {
         if (item.disable === false) {
-          this.$emit('onChange', new Date(this.year, this.month-1, item.day))
+          this.day = item.day
+          this.$emit('onChange', new Date(this.year, this.month-1, this.day))
         }
       }
     },

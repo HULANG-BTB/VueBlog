@@ -49,9 +49,9 @@ export default new Router({
       }
     },
     {
-      path: '/Time/:keyword?/:page?/:limit?',
+      path: '/Time/:time?',
       name: 'Time',
-      component: () => import('@/views/main/Index/Index'),
+      component: () => import('@/views/main/Time/Time'),
       meta: {
         title: '归档',
         breadcrumb: 'Time'
