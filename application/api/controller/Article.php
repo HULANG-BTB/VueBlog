@@ -52,11 +52,11 @@ class Article extends Base
     }
 
     public function getArticleListByTag() {
-//        if (!$this->request->isPost()) {
-//            return $this->buildError('非法操作');
-//        }
+        if (!$this->request->isPost()) {
+            return $this->buildError('非法操作');
+        }
 
-        $keyword = $this->request->param('tag', 0);
+        $keyword = $this->request->post('tag', 0);
         $page = $this->request->post('page', 1);
         $limit = $this->request->post('limit', 10);
 
@@ -74,8 +74,57 @@ class Article extends Base
 
         $count = $this->Model
             ->where(['del' => 0, 'top' => 0, 'status' => 0])
-            ->where('find_in_set(:id,tags)',['id'=>$keyword])
+            ->where('find_in_set(:tag,tags)',['tag'=>$tag])
             ->count();
+
+        $ret['data'] = [
+            'data' => $data,
+            'total' => $count,
+            'page' => $page,
+            'limit' => $limit
+        ];
+
+        if ($data) {
+            return $this->buildSuccess($ret);
+        } else {
+            return $this->buildError('查询数据失败!');
+        }
+    }
+
+    public function getArticleListByTime() {
+        if (!$this->request->isPost()) {
+            return $this->buildError('非法操作');
+        }
+
+        $keyword = $this->request->param('time/s', 0);
+        $page = $this->request->param('page/d', 1);
+        $limit = $this->request->param('limit/d', 10);
+
+        $data = null;
+        $count = null;
+
+        if ($keyword !== 0) {
+            $data = $this->Model
+                ->where(['del' => 0, 'top' => 0, 'status' => 0])
+                ->whereBetweenTime('create_time', $keyword)
+                ->page($page, $limit)
+                ->order(['id' => 'desc'])
+                ->select();
+
+            $count = $this->Model
+                ->where(['del' => 0, 'top' => 0, 'status' => 0])
+                ->whereBetweenTime('create_time', $keyword)
+                ->count();
+        } else {
+            $data = $this->Model
+                ->where(['del' => 0, 'top' => 0, 'status' => 0])
+                ->order(['id' => 'desc'])
+                ->select();
+
+            $count = $this->Model
+                ->where(['del' => 0, 'top' => 0, 'status' => 0])
+                ->count();
+        }
 
         $ret['data'] = [
             'data' => $data,
