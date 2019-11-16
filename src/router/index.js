@@ -73,6 +73,28 @@ export default new Router({
         page: 1,
         limit: 10
       }
+    },
+    {
+      path: '/Admin',
+      name: 'Admin',
+      component: () => import('@/views/main/Admin/Admin'),
+      children: [
+        {
+          path: '/',
+          redirect: {
+            name: 'AdminIndex'
+          }
+        },
+        {
+          path: 'Index',
+          name: 'AdminIndex',
+          component: () => import('@/views/main/Admin/Index'),
+          meta: {
+            title: '首页',
+            breadcrumb: 'Index'
+          }
+        }
+      ]
     }
   ]
 })
