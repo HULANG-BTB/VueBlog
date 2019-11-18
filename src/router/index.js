@@ -93,6 +93,15 @@ export default new Router({
             title: '首页',
             breadcrumb: 'Index'
           }
+        },
+        {
+          path: 'Article',
+          name: 'AdminArticle',
+          component: () => import('@/views/main/Admin/Article'),
+          meta: {
+            title: '文章管理',
+            breadcrumb: 'Article'
+          }
         }
       ]
     }

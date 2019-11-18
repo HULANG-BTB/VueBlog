@@ -3,7 +3,7 @@
 import {
   RECEIVE_ARTICLE_LIST,
   RECEIVE_ARTICLE_INFO,
-  RECEIVE_TAG_LIST
+  RECEIVE_TAG_LIST, RECEIVE_USER_INFO
 } from './mutation-types'
 
 import {
@@ -11,7 +11,8 @@ import {
   reqTagList,
   reqArticleListByTag,
   reqArticleListByPaginator,
-  reqArticleListByTime
+  reqArticleListByTime,
+  reqUserInfo
 } from '../api'
 
 export default {
@@ -48,6 +49,13 @@ export default {
     if (result.code === 1) {
       const ArticleList = result.data.data
       commit(RECEIVE_ARTICLE_LIST, {ArticleList})
+    }
+  },
+  async getUserInfo({commit}, query = null) {
+    const result = await reqUserInfo(query);
+    if (result.code === 1) {
+      const UserInfo = result.data
+      commit(RECEIVE_USER_INFO, {UserInfo})
     }
   }
   

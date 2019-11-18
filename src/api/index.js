@@ -18,3 +18,5 @@ export const reqArticleListByCategory = (query) => ajax(BASE_URL + `/api/Article
 export const reqArticleInfo = (query) => ajax(BASE_URL + `/api/Article/getArticleInfo`, query, 'POST')
 // 请求标签列表
 export const reqTagList = () => ajax(BASE_URL + `/api/Tag/getTagList`)
+// 请求用户信息
+export const reqUserInfo = (query) => ajax(BASE_URL + `/api/User/getUserInfo`, query, 'POST')

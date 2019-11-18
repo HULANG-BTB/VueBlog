@@ -3,7 +3,8 @@
 import {
   RECEIVE_ARTICLE_LIST,
   RECEIVE_ARTICLE_INFO,
-  RECEIVE_TAG_LIST, CLEAR_ARTICLE_LIST
+  RECEIVE_TAG_LIST,
+  CLEAR_ARTICLE_LIST, RECEIVE_USER_INFO
 } from './mutation-types'
 
 export default {
@@ -21,5 +22,8 @@ export default {
   },
   [CLEAR_ARTICLE_LIST] (state) {
     state.ArticleList = {}
+  },
+  [RECEIVE_USER_INFO] (state, {UserInfo}) {
+    state.UserInfo = UserInfo
   }
 }

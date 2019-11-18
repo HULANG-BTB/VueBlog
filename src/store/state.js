@@ -3,5 +3,6 @@
 export default {
   ArticleList: {},
   ArticleInfo: {},
-  TagList: {}
+  TagList: {},
+  UserInfo: {}
 }

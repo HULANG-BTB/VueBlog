@@ -19,6 +19,7 @@
     },
     created() {
       this.$store.dispatch('getTagList')
+      this.$store.dispatch('getUserInfo')
     }
   }
 </script>
