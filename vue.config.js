@@ -7,6 +7,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/imgUpload': {
+        target: 'https://sm.ms',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/imgUpload': ''
+        }
       }
     }
   }

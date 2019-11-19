@@ -3,13 +3,16 @@
 import {
   RECEIVE_ARTICLE_LIST,
   RECEIVE_ARTICLE_INFO,
-  RECEIVE_TAG_LIST, RECEIVE_USER_INFO
+  RECEIVE_TAG_LIST,
+  RECEIVE_CATEGORY_LIST,
+  RECEIVE_USER_INFO
 } from './mutation-types'
 
 import {
   reqArticleInfo,
   reqTagList,
   reqArticleListByTag,
+  reqCategoryList,
   reqArticleListByPaginator,
   reqArticleListByTime,
   reqUserInfo
@@ -37,6 +40,13 @@ export default {
       commit(RECEIVE_TAG_LIST, {TagList})
     }
   },
+  async getCategoryList({commit}) {
+    const result = await reqCategoryList();
+    if (result.code === 1) {
+      const CategoryList = result.data
+      commit(RECEIVE_CATEGORY_LIST, {CategoryList})
+    }
+  },
   async getArticleListByTag({commit}, query) {
     const result = await reqArticleListByTag(query);
     if (result.code === 1) {
@@ -58,5 +68,4 @@ export default {
       commit(RECEIVE_USER_INFO, {UserInfo})
     }
   }
-  
 }
