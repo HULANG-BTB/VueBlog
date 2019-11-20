@@ -3,11 +3,11 @@
 
 namespace app\api\controller;
 
-
 use app\common\controller\Base;
 use app\api\model\Article as ArticleModel;
 use think\App;
 use think\route\Dispatch;
+use think\Session;
 
 class Article extends Base
 {
@@ -152,6 +152,48 @@ class Article extends Base
         } else {
             return $this->buildSuccess($article);
         }
+    }
+
+    public function insertArticle() {
+
+        if (!$this->request->isPost() || !$this->Auth()) {
+            return $this->buildError('非法操作');
+        }
+
+        $title = $this->request->param('title/s', '');
+        $abstract = $this->request->param('abstract/s', '');
+        $category = $this->request->param('category/d', 0);
+        $tag = $this->request->param('tag/a', []);
+        $thumbnail = $this->request->param('thumbnail', '/uploads/Images/thumbnail/default.png');
+        $content = $this->request->param('content/s', '');
+
+        if ( strlen($abstract) === 0 ) {
+            $abstract = substr($content,0, min(250, strlen($content)));
+            $abstract = str_replace("\r", "\\r", $abstract);
+            $abstract = str_replace("\n", "\\r", $abstract);
+            $abstract = str_replace("\r\n", "\\r\\n", $abstract);
+        }
+
+        $data = [
+            'title' => $title,
+            'abstract' => $abstract,
+            'content'=> $content,
+            'tags_list' => implode(",", $tag),
+            'thumbnail' => $thumbnail,
+            'category' => $category,
+        ];
+
+        $result = $this->Model->save($data);
+
+        if ($result) {
+            $this->buildSuccess($result,'新增文章成功');
+        } else {
+            $this->buildError('新增文章失败');
+        }
+    }
+
+    private function Auth() {
+        return Session::has('uid');
     }
 
 }
