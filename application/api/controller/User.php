@@ -71,7 +71,7 @@ class User extends Base
     }
 
     private function encryptPassword($string, $salt = '') {
-        $string = md5($string.$salt, false).$salt;
+        $string = md5($string.$salt, false);
         return sha1($string.$salt, false);
     }
 
