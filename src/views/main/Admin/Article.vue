@@ -9,10 +9,10 @@
 							<Input v-model="article.title"/>
 						</FormItem>
 						<FormItem label="描述">
-							<Input v-model="article.title"/>
+							<Input v-model="article.abstract"/>
 						</FormItem>
 						<FormItem label="分类">
-							<Select v-model="article.category" multiple :max-tag-count="4">
+							<Select v-model="article.category" >
 								<Option v-for="(item, index) in CategoryList" :value="item.id" :key="index">{{ item.title }}</Option>
 							</Select>
 						</FormItem>
@@ -23,12 +23,11 @@
 						</FormItem>
 						<FormItem label="缩略图">
 							<Upload
-									action="/imgUpload/api/v2/upload"
+									action="/upload/api/v2/upload"
 									:headers="UploadHeader"
-									accept="image"
 									name="smfile"
 									:format="['jpg','jpeg','png','gif']"
-									@on-success="UploadSuccess"
+									:before-upload="HandleBeforeUpload"
 							>
 								<Button icon="ios-cloud-upload-outline">Select Image File To Upload</Button>
 							</Upload>
@@ -42,7 +41,7 @@
 								:ishljs="true"
 						/>
 						<div style="margin-top: 2rem">
-							<Button type="success" long>提交</Button>
+							<Button type="success" long @click="AddArticleSubmit">提交</Button>
 						</div>
 					</Form>
 				</TabPane>
@@ -54,6 +53,9 @@
 </template>
 
 <script>
+	import {
+		reqArticleInsert
+	} from '../../../api'
 	export default {
 		name: "Article",
 		data () {
@@ -77,8 +79,32 @@
 			this.$store.dispatch('getCategoryList')
 		},
 		methods: {
-			UploadSuccess(res) {
-				console.log(res.data)
+			HandleBeforeUpload(file) {
+				let UploadData = new FormData()
+				UploadData.append('smfile', file)
+				let that = this
+				return new Promise(async function (resolve, reject) {
+					await that.$axios.post('/upload/api/v2/upload', UploadData)
+						.then((res) => {
+							if (res.data.success === true) {
+								that.$Message.success({content: res.data.message, duration: 8, closable: true})
+								that.article.thumbnail = res.data.data.url
+								resolve(res.data)
+							} else {
+								that.$Message.error({content: res.data.message, duration: 8, closable: true})
+								reject(res)
+							}
+					})
+						.catch((res) => {
+							that.$Message.error({content: '上传文件错误', duration: 8, closable: true})
+							reject(res)
+						})
+				})
+			},
+			async AddArticleSubmit() {
+				console.log(this.article)
+				const result = await reqArticleInsert(this.article)
+				console.log(result)
 			}
 		}
 	}

@@ -1,18 +1,18 @@
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {
+      '/data': {
         target: 'http://blog.cn',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/data': ''
         }
       },
-      '/imgUpload': {
+      '/upload': {
         target: 'https://sm.ms',
         changeOrigin: true,
         pathRewrite: {
-          '^/imgUpload': ''
+          '^/upload': ''
         }
       }
     }

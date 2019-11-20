@@ -2,7 +2,7 @@
 import ajax from './ajax'
 import captcha from "./capache";
 
-const BASE_URL = '/api'
+const BASE_URL = '/data'
 
 // 请求验证码图片
 export const reqCaptchaImg = (query) => captcha(BASE_URL + `/api/Login/captchaCode`, query)
@@ -22,3 +22,5 @@ export const reqTagList = () => ajax(BASE_URL + `/api/Tag/getTagList`)
 export const reqUserInfo = (query) => ajax(BASE_URL + `/api/User/getUserInfo`, query, 'POST')
 // 请求分类列表
 export const reqCategoryList = () => ajax(BASE_URL + `/api/Category/getCategoryList`)
+// 请求增加文章
+export const reqArticleInsert = (query) => ajax(BASE_URL + `/api/Article/insertArticle`, query, 'POST')

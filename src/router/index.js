@@ -76,7 +76,6 @@ export default new Router({
     },
     {
       path: '/Admin',
-      name: 'Admin',
       component: () => import('@/views/main/Admin/Admin'),
       children: [
         {
