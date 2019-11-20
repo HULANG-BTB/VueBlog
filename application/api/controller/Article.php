@@ -7,7 +7,7 @@ use app\common\controller\Base;
 use app\api\model\Article as ArticleModel;
 use think\App;
 use think\route\Dispatch;
-use think\Session;
+use think\facade\Session;
 
 class Article extends Base
 {
@@ -178,17 +178,17 @@ class Article extends Base
             'title' => $title,
             'abstract' => $abstract,
             'content'=> $content,
-            'tags_list' => implode(",", $tag),
+            'tags' => implode(",", $tag),
             'thumbnail' => $thumbnail,
             'category' => $category,
         ];
 
-        $result = $this->Model->save($data);
+        $result = $this->Model->insert($data);
 
         if ($result) {
-            $this->buildSuccess($result,'新增文章成功');
+            return $this->buildSuccess(null,'新增文章成功');
         } else {
-            $this->buildError('新增文章失败');
+            return $this->buildError('新增文章失败');
         }
     }
 
