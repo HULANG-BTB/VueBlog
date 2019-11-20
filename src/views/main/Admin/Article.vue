@@ -102,9 +102,13 @@
 				})
 			},
 			async AddArticleSubmit() {
-				console.log(this.article)
 				const result = await reqArticleInsert(this.article)
 				console.log(result)
+				if (result.status === true) {
+					this.$Message.success(result.msg)
+				} else {
+					this.$Message.error(result.msg)
+				}
 			}
 		}
 	}
