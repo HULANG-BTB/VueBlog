@@ -6,7 +6,6 @@
         filterable
         remote
         allow-create
-        :remote-method="remoteMethod1"
         :loading="loading">
         <Option v-for="(option, index) in options" :value="option.value" :key="index">{{option.label}}</Option>
       </Select>
@@ -59,10 +58,6 @@
             time: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
           }
         })
-      },
-      remoteMethod1(query) {
-        this.options = []
-        console.log(query)
       },
       routeToTag(item) {
         this.$router.push({name: 'Tag', params: {

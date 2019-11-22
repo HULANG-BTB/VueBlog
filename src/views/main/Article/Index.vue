@@ -39,7 +39,7 @@
         <p>最后修改：{{ article.update_time }}</p>
       </div>
       <div class="item">
-        <p>文章地址： <a href="javascript:;">https://oibit.cn/</a> </p>
+        <p>文章地址： <a href="javascript:;">https://oibit.cn/Article/{{ article.id }}</a> </p>
       </div>
       <div class="item">
         <p>转载声明：自由转载-转载请注明来源，且不可作为商业用途 </p>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+
   export default {
     name: "Article",
     data () {

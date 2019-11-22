@@ -45,7 +45,17 @@
 						</div>
 					</Form>
 				</TabPane>
-				<TabPane label="文章列表">文章列表</TabPane>
+				<TabPane label="文章列表">
+					<Table border :columns="TableHeader" :data="ArticleList">
+						<template slot-scope="{ row }" slot="name">
+							<strong>{{ row.name }}</strong>
+						</template>
+						<template slot-scope="{ row, index }" slot="action">
+							<Button type="primary" size="small" style="margin-right: 5px" @click="ArticleListEdit(index)">修改</Button>
+							<Button type="error" size="small" @click="ArticleListRemove(index)">删除</Button>
+						</template>
+					</Table>
+				</TabPane>
 				<TabPane label="回收站">回收站</TabPane>
 			</Tabs>
 		</div>
@@ -64,7 +74,25 @@
 				UploadHeader: {
 					'Content-Type' : 'multipart/form-data',
 					'Authorization': 'hyZPEM1gA7YxJxJXEeaRIk2iYz5YUrDD'
-				}
+				},
+				TableHeader: [
+					{
+						title: 'ID',
+						key: 'id',
+						width: 80,
+						align: 'center'
+					},
+					{
+						title: '标题',
+						key: 'title'
+					},
+					{
+						title: '操作',
+						align: 'center',
+						slot: 'action',
+						width: 150
+					}
+				]
 			}
 		},
 		computed: {
@@ -73,10 +101,14 @@
 			},
 			CategoryList () {
 				return this.$store.state.CategoryList
+			},
+			ArticleList() {
+				return this.$store.state.ArticleList.data
 			}
 		},
 		created() {
 			this.$store.dispatch('getCategoryList')
+			this.$store.dispatch('getArticleListByTime', {page: 1, limit: 999})
 		},
 		methods: {
 			HandleBeforeUpload(file) {
@@ -103,12 +135,18 @@
 			},
 			async AddArticleSubmit() {
 				const result = await reqArticleInsert(this.article)
-				console.log(result)
 				if (result.status === true) {
 					this.$Message.success(result.msg)
+					this.article = {}
 				} else {
 					this.$Message.error(result.msg)
 				}
+			},
+			ArticleListEdit(index) {
+				console.log(index)
+			},
+			ArticleListRemove(index) {
+				console.log(index)
 			}
 		}
 	}

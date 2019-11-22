@@ -2,8 +2,9 @@
   <article>
     <div class="thumbnail">
       <a @click="read">
-        <img :src="article.thumbnail" alt="">
+        <img v-lazy="article.thumbnail" alt="article.thumbnail">
       </a>
+      <div>{{ article.category }}</div>
     </div>
     <div class="context">
       <div class="header">
@@ -149,6 +150,17 @@
   }
   article:hover .thumbnail img {
     transform: translateX(-6px);
+  }
+  article .thumbnail div {
+    position: absolute;
+    top: 0.5rem;
+    right: -1.5rem;
+    width: 5rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    transform: rotate(45deg);
+    background: rgba(10%, 80%, 10%, 0.5);
+    transition: background .3s linear 1s;
   }
   article .context {
     float: right;
