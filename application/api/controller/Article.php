@@ -174,19 +174,21 @@ class Article extends Base
             $abstract = str_replace("\r\n", "\\r\\n", $abstract);
         }
 
-        $data = [
-            'title' => $title,
-            'abstract' => $abstract,
-            'content'=> $content,
-            'tags' => implode(",", $tag),
-            'thumbnail' => $thumbnail,
-            'category' => $category,
-        ];
+        $this->Model->title = $title;
+        $this->Model->abstract = $abstract;
+        $this->Model->content = $content;
+        $this->Model->tags = implode(",", $tag);
+        $this->Model->thumbnail = $thumbnail;
+        $this->Model->category = $category;
 
-        $result = $this->Model->insert($data);
+        $result = $this->Model->save();
 
         if ($result) {
-            return $this->buildSuccess(null,'新增文章成功');
+            $ret = [
+                'id' => $this->Model->id,
+                'title' => $this->Model->title,
+            ];
+            return $this->buildSuccess($ret,'新增文章成功');
         } else {
             return $this->buildError('新增文章失败');
         }
