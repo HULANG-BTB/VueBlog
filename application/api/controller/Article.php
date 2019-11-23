@@ -140,6 +140,38 @@ class Article extends Base
         }
     }
 
+    public function getArticleListByRecycle() {
+        if (!$this->request->isPost()) {
+            return $this->buildError('非法操作');
+        }
+
+        $page = $this->request->post('page', '1');
+        $limit = $this->request->post('limit', '10');
+
+        $data = $this->Model
+            ->where(['del' => 1, 'status' => 0])
+            ->page($page, $limit)
+            ->order(['id' => 'desc'])
+            ->select();
+
+        $count = $this->Model
+            ->where(['del' => 1, 'status' => 0])
+            ->count();
+
+        $ret['data'] = [
+            'data' => $data,
+            'total' => $count,
+            'page' => $page,
+            'limit' => $limit
+        ];
+
+        if ($data) {
+            return $this->buildSuccess($ret);
+        } else {
+            return $this->buildError('查询数据失败!');
+        }
+    }
+
     public function getArticleInfo() {
         if (!$this->request->isPost()) {
             return $this->buildError('非法操作');
@@ -163,7 +195,7 @@ class Article extends Base
         $title = $this->request->param('title/s', '');
         $abstract = $this->request->param('abstract/s', '');
         $category = $this->request->param('category/d', 0);
-        $tag = $this->request->param('tag/a', []);
+        $tags = $this->request->param('tags/a', []);
         $thumbnail = $this->request->param('thumbnail', '/uploads/Images/thumbnail/default.png');
         $content = $this->request->param('content/s', '');
 
@@ -177,7 +209,7 @@ class Article extends Base
         $this->Model->title = $title;
         $this->Model->abstract = $abstract;
         $this->Model->content = $content;
-        $this->Model->tags = implode(",", $tag);
+        $this->Model->tags = implode(",", $tags);
         $this->Model->thumbnail = $thumbnail;
         $this->Model->category = $category;
 
@@ -191,6 +223,62 @@ class Article extends Base
             return $this->buildSuccess($ret,'新增文章成功');
         } else {
             return $this->buildError('新增文章失败');
+        }
+    }
+
+    public function updateArticle() {
+
+        if (!$this->request->isPost() || !$this->Auth()) {
+            return $this->buildError('非法操作');
+        }
+
+        $id = $this->request->param('id/d', 0);
+        $title = $this->request->param('title/s', '');
+        $abstract = $this->request->param('abstract/s', '');
+        $category = $this->request->param('category/d', 0);
+        $tags = $this->request->param('tags/a', []);
+        $thumbnail = $this->request->param('thumbnail', '/uploads/Images/thumbnail/default.png');
+        $content = $this->request->param('content/s', '');
+
+        if ( strlen($abstract) === 0 ) {
+            $abstract = substr($content,0, min(250, strlen($content)));
+            $abstract = str_replace("\r", "\\r", $abstract);
+            $abstract = str_replace("\n", "\\r", $abstract);
+            $abstract = str_replace("\r\n", "\\r\\n", $abstract);
+        }
+
+        $updateData = [
+            'title' => $title,
+            'abstract' => $abstract,
+            'content' => $content,
+            'tags' => implode(",", $tags),
+            'thumbnail' => $thumbnail,
+            'category' => $category
+        ];
+
+        $rst = $this->Model->save($updateData, ['id' => $id]);
+
+        if ($rst === true) {
+            return $this->buildSuccess($this->Model, '更新成功！');
+        } else {
+            return $this->buildError('更新失败！');
+        }
+
+    }
+
+    public function deleteArticle() {
+        if (!$this->request->isPost() || !$this->Auth()) {
+            return $this->buildError('非法操作');
+        }
+        $id = $this->request->param('id/d'. 0);
+        $result = $this->Model->save(['del' => 1],['id' => $id]);
+        if ($result) {
+            $ret = [
+                'id' => $id
+            ];
+            return $this->buildSuccess($ret,'删除文章成功');
+        } else {
+            return $this->buildError('删除文章失败');
         }
     }
 

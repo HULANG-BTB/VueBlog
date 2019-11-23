@@ -10,7 +10,7 @@ class Article extends Model
     //
     public function getCategoryAttr($val) {
         $category = new Category();
-        return $category->get($val)->title;
+        return $category->get($val);
     }
     public function getTagsAttr($val) {
         $list = explode(',', $val);
