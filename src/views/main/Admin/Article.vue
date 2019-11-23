@@ -22,6 +22,7 @@
 							</Select>
 						</FormItem>
 						<FormItem label="缩略图">
+							<Input v-model="ArticleInsert.thumbnail" placeholder="请点击上传或输入图片地址"/>
 							<Upload
 									action="/upload/api/v2/upload"
 									:headers="UploadHeader"
@@ -81,6 +82,7 @@
 							</Select>
 						</FormItem>
 						<FormItem label="缩略图">
+							<Input v-model="ArticleEdit.thumbnail" placeholder="请点击上传或输入图片地址"/>
 							<Upload
 								action="/upload/api/v2/upload"
 								:headers="UploadHeader"
