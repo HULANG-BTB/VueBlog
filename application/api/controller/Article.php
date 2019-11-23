@@ -177,11 +177,12 @@ class Article extends Base
             return $this->buildError('非法操作');
         }
         $pid = $this->request->param('id', 0);
-        $article = $this->Model
-            ->get($pid);
+        $article = ArticleModel::get($pid);
         if (!$article) {
             return $this->buildError('文章不存在');
         } else {
+            $article->view = ['inc', 1];
+            $article->save();
             return $this->buildSuccess($article);
         }
     }
