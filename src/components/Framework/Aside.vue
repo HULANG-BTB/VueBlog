@@ -88,7 +88,7 @@
   .right .search {
     position: relative;
     padding: 0.8rem;
-    background: #FFFFFF;
+    background: rgba(250, 250, 250, 0.7);
     width: 16.5rem;
   }
   .right .tags {
@@ -100,7 +100,7 @@
     user-select: none;
     position: relative;
     padding: 0.8rem;
-    background: #FFFFFF;
+    background: rgba(250, 250, 250, 0.7);
     width: 16.5rem;
   }
   .right .tags .title {
@@ -137,10 +137,11 @@
     background: rgba(0,0,0, 0.2);
     transition: all .3s ease-in;
     border-radius: 0;
+    font-size: 0.7rem;
   }
   .right .tags .tag-list ul li:hover {
-    border-radius: 1rem;
-    background: rgba(0,0,0,0.4);
+    border-radius: .3rem;
+    background: rgba(0,0,0,0.3);
   }
   
 </style>
