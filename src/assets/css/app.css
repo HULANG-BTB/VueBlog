@@ -10,3 +10,6 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+#app > div > div.main.ivu-layout > div > div.ivu-layout-content > div > div.article > div.content > div > div.v-note-panel > div.v-note-show.single-show > div.v-show-content.scroll-style.scroll-style-border-radius {
+  padding: 0;
+}

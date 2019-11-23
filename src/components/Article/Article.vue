@@ -4,7 +4,6 @@
       <a @click="read">
         <img v-lazy="article.thumbnail" alt="article.thumbnail">
       </a>
-      <div>{{ article.category }}</div>
     </div>
     <div class="context">
       <div class="header">
@@ -12,16 +11,12 @@
           <a @click="read"> {{ article.title }} </a>
         </h2>
       </div>
-      <div class="abstract">
+      <div class="abstract unselected">
         <p>{{ article.abstract }}</p>
       </div>
       <div class="footer">
         <div class="meta">
           <ul>
-            <li class="category">
-              <Icon type="ios-list-box" />
-              {{ article.category }}
-            </li>
             <li class="time">
               <Icon type="ios-time" />
               <Time :time="article.create_time" />
@@ -42,6 +37,7 @@
         </div>
       </div>
     </div>
+    <div class="category unselected">{{ article.category.title }}</div>
   </article>
 </template>
 
@@ -151,16 +147,22 @@
   article:hover .thumbnail img {
     transform: translateX(-6px);
   }
-  article .thumbnail div {
+  article .category {
     position: absolute;
-    top: 0.5rem;
-    right: -1.5rem;
+    top: 0.8rem;
+    left: -1.2rem;
     width: 5rem;
     height: 1.2rem;
     line-height: 1.2rem;
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
+    background: rgba(100%, 800%, 100%, 0);
+    z-index: 11;
+    color: rgba(100%, 800%, 100%, 0);
+  }
+  article:hover .category {
     background: rgba(10%, 80%, 10%, 0.5);
-    transition: background .3s linear 1s;
+    transition: all .3s linear;
+    color: #000000;
   }
   article .context {
     float: right;

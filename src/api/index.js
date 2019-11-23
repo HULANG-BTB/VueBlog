@@ -24,3 +24,7 @@ export const reqUserInfo = (query) => ajax(BASE_URL + `/api/User/getUserInfo`, q
 export const reqCategoryList = () => ajax(BASE_URL + `/api/Category/getCategoryList`)
 // 请求增加文章
 export const reqArticleInsert = (query) => ajax(BASE_URL + `/api/Article/insertArticle`, query, 'POST')
+// 请求修改文章
+export const reqArticleUpdate = (query) => ajax(BASE_URL + `/api/Article/updateArticle`, query, 'POST')
+// 请求删除文章
+export const reqArticleDelete = (query) => ajax(BASE_URL + `/api/Article/deleteArticle`, query, 'POST')
