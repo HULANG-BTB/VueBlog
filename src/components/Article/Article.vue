@@ -224,6 +224,7 @@
     margin-left: 1rem;
     float: left;
     text-align: left;
+    font-size: .6rem;
   }
   article .context .footer .meta ul li:first-child {
     margin-left: 0;

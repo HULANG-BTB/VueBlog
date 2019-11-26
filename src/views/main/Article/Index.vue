@@ -25,7 +25,7 @@
           :toolbarsFlag="false"
           defaultOpen="preview"
           previewBackground="none"
-          :style="{'z-index': 0, 'border': 'none', 'padding': 0}"
+          :style="{'border': 'none', 'padding': 0}"
           codeStyle="darcula"
           :ishljs="true"
         />

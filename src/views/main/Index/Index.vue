@@ -106,5 +106,9 @@
     position: relative;
     height: 2rem;
     line-height: 2rem;
+    transition: all .3s ease-in;
+  }
+  .main .ivu-layout-content .container .more:hover {
+    background: rgba(150,150,150,0.1);
   }
 </style>

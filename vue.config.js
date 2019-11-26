@@ -8,14 +8,15 @@ module.exports = {
           '^/data': ''
         }
       },
-      '/upload': {
-        target: 'https://sm.ms',
+      '/imgUpload': {
+        target: 'https://img.oibit.cn',
         changeOrigin: true,
         pathRewrite: {
-          '^/upload': ''
+          '^/imgUpload': ''
         }
       }
-    }
+    },
+    https: true
   },
   /*
   configureWebpack: {

@@ -77,6 +77,7 @@
     border-radius: 2px;
     margin-bottom: 0.5rem;
     transition: all .3s ease-in;
+    font-size: .7rem;
   }
   .nav ul.ivu-menu.ivu-menu-light li.ivu-menu-item:hover {
     color: #0085f5;
