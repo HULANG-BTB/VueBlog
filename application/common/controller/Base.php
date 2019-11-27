@@ -5,6 +5,7 @@ namespace app\common\controller;
 
 
 use think\Controller;
+use think\facade\Session;
 
 class Base extends Controller
 {
@@ -28,6 +29,10 @@ class Base extends Controller
         ];
         return json($ret);
 
+    }
+
+    protected function Auth() {
+        return Session::has('uid');
     }
 
 }

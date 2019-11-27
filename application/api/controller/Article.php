@@ -271,7 +271,7 @@ class Article extends Base
         if (!$this->request->isPost() || !$this->Auth()) {
             return $this->buildError('非法操作');
         }
-        $id = $this->request->param('id/d'. 0);
+        $id = $this->request->param('id/d', 0);
         $result = $this->Model->save(['del' => 1],['id' => $id]);
         if ($result) {
             $ret = [
@@ -281,10 +281,6 @@ class Article extends Base
         } else {
             return $this->buildError('删除文章失败');
         }
-    }
-
-    private function Auth() {
-        return Session::has('uid');
     }
 
 }
