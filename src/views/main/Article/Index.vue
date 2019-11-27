@@ -155,7 +155,7 @@
     background: #83AF9B
   }
   .article .content {
-    margin-top: 2rem;
+    margin-top: 0;
   }
   
   .meta {

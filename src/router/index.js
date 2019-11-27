@@ -101,6 +101,15 @@ export default new Router({
             title: '文章管理',
             breadcrumb: 'Article'
           }
+        },
+        {
+          path: 'Category',
+          name: 'AdminCategory',
+          component: () => import('@/views/main/Admin/Category'),
+          meta: {
+            title: '分类管理',
+            breadcrumb: 'Category'
+          }
         }
       ]
     }

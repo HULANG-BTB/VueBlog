@@ -28,3 +28,9 @@ export const reqArticleInsert = (query) => ajax(BASE_URL + `/api/Article/insertA
 export const reqArticleUpdate = (query) => ajax(BASE_URL + `/api/Article/updateArticle`, query, 'POST')
 // 请求删除文章
 export const reqArticleDelete = (query) => ajax(BASE_URL + `/api/Article/deleteArticle`, query, 'POST')
+// 请求分类删除
+export const reqCategoryDelete = (query) => ajax(BASE_URL + `/api/Category/deleteCategory`, query, 'POST')
+// 请求分类增加
+export const reqCategoryInsert = (query) => ajax(BASE_URL + `/api/Category/insertCategory`, query, 'POST')
+// 请求分类修改
+export const reqCategoryUpdate = (query) => ajax(BASE_URL + `/api/Category/updateCategory`, query, 'POST')

@@ -15,8 +15,7 @@ module.exports = {
           '^/imgUpload': ''
         }
       }
-    },
-    https: true
+    }
   },
   /*
   configureWebpack: {
