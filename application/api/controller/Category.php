@@ -51,7 +51,7 @@ class Category extends Base
         if (!$this->request->isPost() || !$this->Auth()) {
             return $this->buildError('非法操作');
         }
-        $title = $this->request->param('title/d', '');
+        $title = $this->request->param('title/s', '');
         $this->Model->title = $title;
         $result = $this->Model->save();
         if ($result) {
