@@ -1,21 +1,5 @@
 <template>
   <div class="container">
-    <div class="banner">
-      <Carousel loop arrow="hover" :height="230" :style="{width: '100%'}" autoplay :autoplay-speed="2500">
-        <CarouselItem>
-          <img src="../../../assets/img/banner-1.jpg" alt="">
-        </CarouselItem>
-        <CarouselItem>
-          <img src="../../../assets/img/banner-2.jpg" alt="">
-        </CarouselItem>
-        <CarouselItem>
-          <img src="../../../assets/img/banner-3.jpg" alt="">
-        </CarouselItem>
-        <CarouselItem>
-          <img src="../../../assets/img/banner-4.jpg" alt="">
-        </CarouselItem>
-      </Carousel>
-    </div>
     <div class="content">
       <template v-if="ArticleList">
         <Article v-for="(item, index) in ArticleList.data"
@@ -27,43 +11,44 @@
     </div>
     <div class="unselected more">
       <Spin size="large" v-if="loading"></Spin>
-      <span v-else-if="page <= Math.floor(ArticleList.total / ArticleList.limit)" @click="loadMore">更多</span>
+      <span v-else-if="page < Math.floor(ArticleList.total / ArticleList.limit)" @click="loadMore">更多</span>
       <span v-else>没有更多了。。。</span>
     </div>
   </div>
-
-
 </template>
 
 <script>
-  import Article from "../../../components/Article/Article"
+  import Article from "../../../components/Article/Article";
   export default {
-    name: "Index",
+    name: "Tag",
     data () {
       return {
+        loading: false,
         page: 1,
         limit: 10,
-        loading: false
+      }
+    },
+    computed: {
+      ArticleList () {
+        return this.$store.state.ArticleList
+      },
+      tag () {
+        return this.$route.params.tag
       }
     },
     created() {
       this.$store.commit('clear_article_list')
       this.fetchData()
     },
-    computed: {
-      ArticleList () {
-        return this.$store.state.ArticleList
-      }
-    },
     methods: {
-      async loadMore() {
+      loadMore() {
         this.page += 1
-        await this.fetchData()
+        this.fetchData()
       },
       async fetchData() {
         this.loading = true
-        const {page, limit} = this
-        await this.$store.dispatch('getArticleListByPaginator', {page, limit})
+        const {page, limit, tag} = this
+        await this.$store.dispatch('getArticleListByTag', {page, limit, tag})
         this.loading = false
       }
     },
@@ -101,14 +86,5 @@
     height: 2rem;
     line-height: 2rem;
     background: #FFFFFF;
-  }
-  .main .ivu-layout-content .container .more {
-    position: relative;
-    height: 2rem;
-    line-height: 2rem;
-    transition: all .3s ease-in;
-  }
-  .main .ivu-layout-content .container .more:hover {
-    background: rgba(150,150,150,0.1);
   }
 </style>

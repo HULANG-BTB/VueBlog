@@ -1,11 +1,11 @@
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://blog.cn',
+      '/data': {
+        target: 'https://server.oibit.cn',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/data': ''
         }
       }
     }

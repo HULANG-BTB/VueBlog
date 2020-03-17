@@ -8,6 +8,9 @@
       <div class="title">
         行也思君，坐也思君
       </div>
+      <div class="user">
+        <Icon type="ios-contact-outline" />
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +28,7 @@
     position: relative;
   }
   .container .nav {
-    width: 30rem;
+    width: 100%;
     position: relative;
   }
   .container .nav .logo  {
@@ -40,6 +43,13 @@
     font-size: 1.7rem;
     top: 0;
     left: 12rem;
+    position: absolute;
+    color: #0085f5;
+  }
+  .container .nav .user {
+    font-size: 1.7rem;
+    top: 0;
+    right: 0;
     position: absolute;
     color: #0085f5;
   }

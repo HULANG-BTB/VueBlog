@@ -4,7 +4,7 @@
       <div class="prev" @click="prevMonth">
         <Icon type="ios-arrow-back" />
       </div>
-      <div class="curr">{{ currentDate }}</div>
+      <div class="curr" @click="today">{{ currentDate }}</div>
       <div class="next" @click="nextMonth">
         <Icon type="ios-arrow-forward" />
       </div>
@@ -27,7 +27,7 @@
           :key="index"
           class="item"
           :class="{disable:item.disable, active: item.active}"
-          @dblclick="handleDateChange(item)"
+          @click="handleDateChange(item)"
         >
           {{ item.day }}
         </li>
@@ -70,6 +70,12 @@
           this.month = 1
           this.year += 1
         }
+        this.buildDays()
+      },
+      today() {
+        const date = new Date()
+        this.year = date.getFullYear()
+        this.month = date.getMonth() + 1
         this.buildDays()
       },
       buildDays() {
@@ -119,7 +125,8 @@
       },
       handleDateChange(item) {
         if (item.disable === false) {
-          this.$emit('onChange', {date: new Date(this.year, this.month-1, this.day)})
+          this.day = item.day
+          this.$emit('onChange', new Date(this.year, this.month-1, this.day))
         }
       }
     },
@@ -146,7 +153,7 @@
     -ms-user-select: none;
     user-select: none;
     width: 100%;
-    background: #FFFFFF;
+    background: rgba(250, 250, 250, 0.7);
     padding: 0.8rem;
   }
   .calendar .toobar {

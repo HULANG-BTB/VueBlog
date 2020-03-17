@@ -2,5 +2,8 @@
 
 export default {
   ArticleList: {},
-  ArticleInfo: {}
+  ArticleInfo: {},
+  TagList: {},
+  CategoryList: {},
+  UserInfo: {}
 }

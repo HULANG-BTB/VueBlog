@@ -2,7 +2,7 @@
   <article>
     <div class="thumbnail">
       <a @click="read">
-        <img :src="article.thumbnail" alt="">
+        <img v-lazy="article.thumbnail" alt="article.thumbnail">
       </a>
     </div>
     <div class="context">
@@ -11,16 +11,12 @@
           <a @click="read"> {{ article.title }} </a>
         </h2>
       </div>
-      <div class="abstract">
+      <div class="abstract unselected">
         <p>{{ article.abstract }}</p>
       </div>
       <div class="footer">
         <div class="meta">
           <ul>
-            <li class="category">
-              <Icon type="ios-list-box" />
-              {{ article.category }}
-            </li>
             <li class="time">
               <Icon type="ios-time" />
               <Time :time="article.create_time" />
@@ -41,6 +37,7 @@
         </div>
       </div>
     </div>
+    <div class="category unselected">{{ article.category.title }}</div>
   </article>
 </template>
 
@@ -150,6 +147,23 @@
   article:hover .thumbnail img {
     transform: translateX(-6px);
   }
+  article .category {
+    position: absolute;
+    top: 0.8rem;
+    left: -1.2rem;
+    width: 5rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    transform: rotate(-45deg);
+    background: rgba(100%, 800%, 100%, 0);
+    z-index: 11;
+    color: rgba(100%, 800%, 100%, 0);
+  }
+  article:hover .category {
+    background: rgba(10%, 80%, 10%, 0.5);
+    transition: all .3s linear;
+    color: #000000;
+  }
   article .context {
     float: right;
     position: relative;
@@ -210,6 +224,7 @@
     margin-left: 1rem;
     float: left;
     text-align: left;
+    font-size: .6rem;
   }
   article .context .footer .meta ul li:first-child {
     margin-left: 0;

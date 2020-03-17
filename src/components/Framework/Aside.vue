@@ -6,7 +6,6 @@
         filterable
         remote
         allow-create
-        :remote-method="remoteMethod1"
         :loading="loading">
         <Option v-for="(option, index) in options" :value="option.value" :key="index">{{option.label}}</Option>
       </Select>
@@ -16,13 +15,14 @@
       <div class="title">标签云</div>
       <div class="tag-list">
         <ul>
-          <li>标签1</li>
-          <li>标签2长度长一点</li>
-          <li>标签3</li>
-          <li>标签4</li>
-          <li>标签5长度也很长很长</li>
-          <li>标签6</li>
-          <li>标签7</li>
+          <li
+            v-for="(item, index) in tagList"
+            :key="index"
+            @click="routeToTag(item)"
+          >
+            {{ `${item.name} [ ${item.count} ]` }}
+            
+          </li>
         </ul>
       </div>
     </div>
@@ -46,13 +46,29 @@
     components: {
       Calendar
     },
+    created() {
+      if (this.$route.params.time) {
+        this.currentDate = new Date(this.$route.params.time)
+      }
+    },
     methods: {
       handleDateChange(date) {
-        console.log(date)
+        this.currentDate = date
+        this.$router.push({name: 'Time', params: {
+            time: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+          }
+        })
       },
-      remoteMethod1(query) {
-        this.options = []
-        console.log(query)
+      routeToTag(item) {
+        this.$router.push({name: 'Tag', params: {
+            tag: item.name
+          }
+        })
+      }
+    },
+    computed: {
+      tagList() {
+        return this.$store.state.TagList
       }
     }
   }
@@ -72,13 +88,19 @@
   .right .search {
     position: relative;
     padding: 0.8rem;
-    background: #FFFFFF;
+    background: rgba(250, 250, 250, 0.7);
     width: 16.5rem;
   }
   .right .tags {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     position: relative;
     padding: 0.8rem;
-    background: #FFFFFF;
+    background: rgba(250, 250, 250, 0.7);
     width: 16.5rem;
   }
   .right .tags .title {
@@ -115,10 +137,11 @@
     background: rgba(0,0,0, 0.2);
     transition: all .3s ease-in;
     border-radius: 0;
+    font-size: 0.7rem;
   }
   .right .tags .tag-list ul li:hover {
-    border-radius: 1rem;
-    background: rgba(0,0,0,0.4);
+    border-radius: .3rem;
+    background: rgba(0,0,0,0.3);
   }
   
 </style>

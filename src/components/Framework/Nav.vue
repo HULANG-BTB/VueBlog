@@ -1,29 +1,29 @@
 <template>
   <div class="nav">
-    <Menu mode="horizontal" active-name="1">
-      <MenuItem name="1">
-        <Icon type="md-bug" />
-        <span>首页</span>
+    <Menu mode="horizontal" :active-name="active" @on-select="routeTo">
+      <MenuItem name="Index" class="unselected">
+        <Icon type="md-home" />
+        <span>主页</span>
       </MenuItem>
-      <MenuItem name="2">
-        <Icon type="md-bug" />
-        <span>首页</span>
+      <MenuItem name="Category" class="unselected">
+        <Icon type="md-book" />
+        <span>分类</span>
       </MenuItem>
-      <MenuItem name="3">
-        <Icon type="md-bug" />
-        <span>首页</span>
+      <MenuItem name="Tag" class="unselected">
+        <Icon type="md-bookmark" />
+        <span>标签</span>
       </MenuItem>
-      <MenuItem name="4">
-        <Icon type="md-bug" />
-        <span>首页</span>
+      <MenuItem name="Time" class="unselected">
+        <Icon type="ios-cafe" />
+        <span>归档</span>
       </MenuItem>
-      <MenuItem name="5">
-        <Icon type="md-bug" />
-        <span>首页</span>
+      <MenuItem name="About" class="unselected">
+        <Icon type="md-contact" />
+        <span>关于</span>
       </MenuItem>
-      <MenuItem name="6">
-        <Icon type="md-bug" />
-        <span>首页</span>
+      <MenuItem name="Contact" class="unselected">
+        <Icon type="md-chatboxes" />
+        <span>联系</span>
       </MenuItem>
     </Menu>
   </div>
@@ -31,7 +31,22 @@
 
 <script>
   export default {
-    name: "Nav"
+    name: "Nav",
+    data() {
+      return {
+      
+      }
+    },
+    methods: {
+      routeTo(val) {
+        this.$router.push({name: val})
+      }
+    },
+    computed: {
+      active() {
+        return this.$route.meta.breadcrumb
+      }
+    }
   }
 </script>
 
@@ -62,6 +77,7 @@
     border-radius: 2px;
     margin-bottom: 0.5rem;
     transition: all .3s ease-in;
+    font-size: .7rem;
   }
   .nav ul.ivu-menu.ivu-menu-light li.ivu-menu-item:hover {
     color: #0085f5;
